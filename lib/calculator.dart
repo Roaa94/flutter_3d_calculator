@@ -1,3 +1,4 @@
+import 'package:calculator_3d/constants.dart';
 import 'package:calculator_3d/key_body_painter.dart';
 import 'package:calculator_3d/key_face_painter.dart';
 import 'package:flutter/material.dart';
@@ -35,16 +36,31 @@ class _CalculatorState extends State<Calculator>
       children: [
         Center(
           child: SizedBox(
-            width: 100,
-            height: 100,
+            width: Constants.keySize.width,
+            height: Constants.keySize.height,
             child: CustomPaint(
               foregroundPainter: KeyFacePainter(
                 '9',
                 animation: _animationController,
+                keySize: Constants.keySize,
               ),
-              painter: KeyBodyPainter(),
+              painter: KeyBodyPainter(
+                animation: _animationController,
+                keySize: Constants.keySize,
+              ),
             ),
           ),
+        ),
+        const SizedBox(height: 100),
+        ElevatedButton(
+          onPressed: () {
+            if (_animationController.isCompleted) {
+              _animationController.reverse();
+            } else {
+              _animationController.forward();
+            }
+          },
+          child: const Text('Toggle Animation!'),
         ),
       ],
     );

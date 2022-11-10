@@ -8,17 +8,29 @@ class KeyFacePainter extends CustomPainter {
   KeyFacePainter(
     this.value, {
     required this.animation,
-  }) : super(repaint: animation);
+    required this.keySize,
+  }) : super(repaint: animation) {
+    angleAnimation = Tween<double>(begin: 0, end: 45).animate(
+      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+    );
+    scaleAnimation = Tween<double>(begin: 1, end: 0.5).animate(
+      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+    );
+  }
 
   final Animation<double> animation;
   final String value;
+  final Size keySize;
+
+  late Animation<double> angleAnimation;
+  late Animation<double> scaleAnimation;
 
   @override
   void paint(Canvas canvas, Size size) {
     final keyFacePaint = Paint()
       ..shader = ui.Gradient.linear(
-        Offset(0, size.height / 2),
-        Offset(size.width, size.height),
+        Offset(0, keySize.height / 2),
+        Offset(keySize.width, keySize.height),
         [
           Colors.blueGrey.shade100,
           Colors.blueGrey.shade200,
@@ -33,8 +45,8 @@ class KeyFacePainter extends CustomPainter {
           Rect.fromLTWH(
             0,
             0,
-            size.width - 4,
-            size.height - 4,
+            keySize.width - 4,
+            keySize.height - 4,
           ),
           const Radius.circular(Constants.keyBorderRadius),
         ),
@@ -45,14 +57,14 @@ class KeyFacePainter extends CustomPainter {
           Rect.fromLTWH(
             0,
             0,
-            size.width,
-            size.height,
+            keySize.width,
+            keySize.height,
           ),
           const Radius.circular(Constants.keyBorderRadius),
         ),
       );
-    canvas.scale(1, 0.5);
-    canvas.rotate(45 * pi / 180);
+    canvas.scale(1, scaleAnimation.value);
+    canvas.rotate(angleAnimation.value * pi / 180);
     canvas.drawPath(
       keyFaceShadowPath,
       keyFaceShadowPaint,
@@ -61,7 +73,7 @@ class KeyFacePainter extends CustomPainter {
       keyFacePath,
       keyFacePaint,
     );
-    final fontSize = size.width * 0.6;
+    final fontSize = keySize.width * 0.6;
     final textStyle = TextStyle(
       color: Colors.blueGrey.shade700,
       fontSize: fontSize,
@@ -92,10 +104,10 @@ class KeyFacePainter extends CustomPainter {
     );
     textPainter.layout(
       minWidth: 0,
-      maxWidth: size.width,
+      maxWidth: keySize.width,
     );
-    final xCenter = size.width / 2 - fontSize * 0.4;
-    final yCenter = size.height / 2 - fontSize * 0.65;
+    final xCenter = keySize.width / 2 - fontSize * 0.4;
+    final yCenter = keySize.height / 2 - fontSize * 0.65;
     final offset = Offset(xCenter, yCenter);
     textPainter.paint(canvas, offset);
   }
