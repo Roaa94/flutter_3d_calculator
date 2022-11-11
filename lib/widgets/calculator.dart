@@ -32,7 +32,7 @@ class _CalculatorState extends State<Calculator>
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
-    );
+    )..forward();
     scaleAnimation =
         Tween<double>(begin: 1, end: 0.5).animate(animationController);
     super.initState();
@@ -49,7 +49,17 @@ class _CalculatorState extends State<Calculator>
     return Focus(
       focusNode: keyboardListenerFocusNode,
       onKey: (node, RawKeyEvent event) {
-        if (event is RawKeyDownEvent && animationController.isCompleted) {
+        if (event is RawKeyDownEvent &&
+            event.data.physicalKey == PhysicalKeyboardKey.tab) {
+          if (animationController.isCompleted) {
+            animationController.reverse();
+          } else {
+            animationController.forward();
+          }
+          return KeyEventResult.handled;
+        }
+
+        if (event is RawKeyDownEvent) {
           final logicalKey = event.data.logicalKey;
           CalculatorKeyType? calculatorKeyType =
               CalculatorKeyType.getFromKey(logicalKey);
@@ -86,6 +96,7 @@ class _CalculatorState extends State<Calculator>
                             });
                           },
                           child: KeyTapEffect(
+                            in3d: animationController.isCompleted,
                             onEnd: () {
                               setState(() {
                                 tappedKeyType = null;
