@@ -10,22 +10,22 @@ class KeyBodyPainter extends CustomPainter {
     required this.animation,
   }) : super(repaint: animation) {
     angleAnimation = Tween<double>(begin: 0, end: 45).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
     distanceAnimation = Tween<double>(begin: 0, end: 100).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
     scaleAnimation = Tween<Offset>(
       begin: const Offset(1.1, 1.1),
       end: const Offset(1, 0.5),
     ).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
     translateAnimation = Tween<Offset>(
       begin: const Offset(-5, -5),
       end: const Offset(0, 0),
     ).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
   }
 

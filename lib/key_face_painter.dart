@@ -11,10 +11,10 @@ class KeyFacePainter extends CustomPainter {
     required this.keySize,
   }) : super(repaint: animation) {
     angleAnimation = Tween<double>(begin: 0, end: 45).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
     scaleAnimation = Tween<double>(begin: 1, end: 0.5).animate(
-      CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      CurvedAnimation(parent: animation, curve: Constants.curve),
     );
   }
 
@@ -28,9 +28,10 @@ class KeyFacePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     double aspectRatio = keySize.width / keySize.height;
-    double keyWidth = keySize.width + (aspectRatio > 1 ? Constants.keysGap : 0);
-    double keyHeight =
-        keySize.height + (aspectRatio < 1 ? Constants.keysGap : 0);
+    double keyWidth = keySize.width +
+        (aspectRatio > 1 ? Constants.keysGap : 0) * (1 - animation.value);
+    double keyHeight = keySize.height +
+        (aspectRatio < 1 ? Constants.keysGap : 0) * (1 - animation.value);
 
     final keyFacePaint = Paint()
       ..shader = ui.Gradient.linear(
