@@ -15,16 +15,19 @@ class KeyBodyPainter extends CustomPainter {
     distanceAnimation = Tween<double>(begin: 0, end: 100).animate(
       CurvedAnimation(parent: animation, curve: Curves.easeInOut),
     );
-    const double scaleDifference = 0.05;
+    const double scaleDifference = Constants.keyBodyScaleDifference;
+
     scaleAnimation = Tween<Offset>(
-      begin: const Offset(1 + scaleDifference * 2, 1 + scaleDifference * 2),
+      begin: const Offset(1 + scaleDifference, 1 + scaleDifference),
       end: const Offset(1, 0.5),
     ).animate(
       CurvedAnimation(parent: animation, curve: Curves.easeInOut),
     );
     translateAnimation = Tween<Offset>(
       begin: Offset(
-          -keySize.width * scaleDifference, -keySize.width * scaleDifference),
+        -keySize.width * scaleDifference / 2,
+        -keySize.width * scaleDifference / 2,
+      ),
       end: const Offset(0, 0),
     ).animate(
       CurvedAnimation(parent: animation, curve: Curves.easeInOut),
