@@ -48,33 +48,31 @@ class _CalculatorViewState extends State<CalculatorView>
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AnimatedBuilder(
-        animation: animationController,
-        builder: (context, child) => Transform.scale(
-          scaleY: scaleAnimation.value,
-          child: Transform(
-            transform: Matrix4.identity()
-              ..rotateZ((45 * animationController.value) * pi / 180),
-            alignment: Alignment.center,
-            child: CalculatorGrid(
-              config: widget.config,
-              keyBuilder: (context, CalculatorKeyData key) {
-                return GestureDetector(
-                  onTap: () => widget.onKeyTap(key.type),
-                  child: KeyTapEffect(
-                    in3d: animationController.isCompleted,
-                    onEnd: widget.onKeyAnimationEnd,
-                    isTapped: widget.currentTappedKey == key.type,
-                    child: CalculatorKey(
-                      keyData: key,
-                      calculatorConfig: widget.config,
-                      animationController: animationController,
-                    ),
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (context, child) => Transform.scale(
+        scaleY: scaleAnimation.value,
+        child: Transform(
+          transform: Matrix4.identity()
+            ..rotateZ((45 * animationController.value) * pi / 180),
+          alignment: Alignment.center,
+          child: CalculatorGrid(
+            config: widget.config,
+            keyBuilder: (context, CalculatorKeyData key) {
+              return GestureDetector(
+                onTap: () => widget.onKeyTap(key.type),
+                child: KeyTapEffect(
+                  in3d: animationController.isCompleted,
+                  onEnd: widget.onKeyAnimationEnd,
+                  isTapped: widget.currentTappedKey == key.type,
+                  child: CalculatorKey(
+                    keyData: key,
+                    calculatorConfig: widget.config,
+                    animationController: animationController,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
