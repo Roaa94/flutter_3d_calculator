@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
@@ -26,16 +27,18 @@ class _CalculatorState extends State<Calculator>
   late final Animation<double> scaleAnimation;
   final FocusNode keyboardListenerFocusNode = FocusNode();
   CalculatorKeyType? tappedKeyType;
+  final player = AudioPlayer();
+  bool muted = false;
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     )..forward();
     scaleAnimation =
         Tween<double>(begin: 1, end: 0.5).animate(animationController);
-    super.initState();
   }
 
   @override
@@ -49,21 +52,26 @@ class _CalculatorState extends State<Calculator>
     return Focus(
       focusNode: keyboardListenerFocusNode,
       onKey: (node, RawKeyEvent event) {
-        if (event is RawKeyDownEvent &&
-            event.data.physicalKey == PhysicalKeyboardKey.tab) {
-          if (animationController.isCompleted) {
-            animationController.reverse();
-          } else {
-            animationController.forward();
-          }
-          return KeyEventResult.handled;
-        }
-
         if (event is RawKeyDownEvent) {
+          if (event.data.physicalKey == PhysicalKeyboardKey.tab) {
+            if (animationController.isCompleted) {
+              animationController.reverse();
+            } else {
+              animationController.forward();
+            }
+            return KeyEventResult.handled;
+          }
+
           final logicalKey = event.data.logicalKey;
           CalculatorKeyType? calculatorKeyType =
               CalculatorKeyType.getFromKey(logicalKey);
           if (calculatorKeyType != null) {
+            if (player.state == PlayerState.playing) {
+              player.stop();
+            }
+            if (!muted) {
+              player.play(AssetSource('keyboard_tap.wav'));
+            }
             setState(() {
               tappedKeyType = calculatorKeyType;
             });
@@ -80,6 +88,10 @@ class _CalculatorState extends State<Calculator>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              IconButton(
+                onPressed: () => setState(() => muted = !muted),
+                icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
+              ),
               const SizedBox(height: 50),
               Center(
                 child: AnimatedBuilder(
