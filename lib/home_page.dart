@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade300,
       body: Center(
-        child: Calculator(
+        child: CalculatorView(
           config: CalculatorConfig(
             calculatorSide: 460,
             // This can be used to have the calculator scale with the screen

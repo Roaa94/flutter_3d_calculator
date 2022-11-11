@@ -9,8 +9,8 @@ import 'package:calculator_3d/widgets/key_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Calculator extends StatefulWidget {
-  const Calculator({
+class CalculatorView extends StatefulWidget {
+  const CalculatorView({
     super.key,
     required this.config,
   });
@@ -18,10 +18,10 @@ class Calculator extends StatefulWidget {
   final CalculatorConfig config;
 
   @override
-  State<Calculator> createState() => _CalculatorState();
+  State<CalculatorView> createState() => _CalculatorViewState();
 }
 
-class _CalculatorState extends State<Calculator>
+class _CalculatorViewState extends State<CalculatorView>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<double> scaleAnimation;
@@ -88,9 +88,24 @@ class _CalculatorState extends State<Calculator>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () => setState(() => muted = !muted),
-                icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => setState(() => muted = !muted),
+                    icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    onPressed: () {
+                      if (animationController.isCompleted) {
+                        animationController.reverse();
+                      } else {
+                        animationController.forward();
+                      }
+                    },
+                    icon: const Icon(Icons.threed_rotation_rounded),
+                  ),
+                ],
               ),
               const SizedBox(height: 50),
               Center(
@@ -132,17 +147,7 @@ class _CalculatorState extends State<Calculator>
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () {
-                  if (animationController.isCompleted) {
-                    animationController.reverse();
-                  } else {
-                    animationController.forward();
-                  }
-                },
-                child: const Text('Toggle Animation!'),
-              ),
+              const SizedBox(height: 70),
             ],
           ),
         );
