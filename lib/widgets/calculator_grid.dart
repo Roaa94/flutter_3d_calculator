@@ -36,10 +36,16 @@ class CalculatorGrid extends StatelessWidget {
                   children: List.generate(
                     9,
                     (index) {
+                      int itemsPerRow = 3;
+                      int colIndex = index % itemsPerRow;
+                      int reverseColIndex = itemsPerRow - colIndex - 1;
+
                       return keyBuilder(
                         context,
                         CalculatorKeyData(
-                          type: CalculatorKeyType.fromNumber(index + 1),
+                          type: CalculatorKeyType.fromNumber(
+                            (9 - index) + colIndex - reverseColIndex,
+                          ),
                           color: config.baseColor,
                           size: Size(config.keySideMin, config.keySideMin),
                         ),
