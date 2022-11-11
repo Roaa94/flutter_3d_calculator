@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:calculator_3d/utils/calculator_config.dart';
-import 'package:calculator_3d/utils/calculator_key.dart';
+import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
 import 'package:calculator_3d/widgets/calculator_key_face.dart';
 import 'package:calculator_3d/widgets/key_body_painter.dart';
@@ -70,7 +70,7 @@ class _CalculatorState extends State<Calculator>
                     children: [
                       CalculatorGrid(
                         config: widget.config,
-                        keyBuilder: (context, CalculatorKey key) {
+                        keyBuilder: (context, CalculatorKeyData key) {
                           return KeyTapEffect(
                             isTapped: tappedKeyType == key.type,
                             child: Container(
@@ -122,7 +122,7 @@ class _CalculatorState extends State<Calculator>
                       ),
                       CalculatorGrid(
                         config: widget.config,
-                        keyBuilder: (context, CalculatorKey key) {
+                        keyBuilder: (context, CalculatorKeyData key) {
                           return GestureDetector(
                             onTap: () {
                               setState(() {

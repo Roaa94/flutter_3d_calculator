@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CalculatorKey {
-  CalculatorKey({
+class CalculatorKeyData {
+  CalculatorKeyData({
     required this.type,
     required this.color,
     required this.size,
@@ -10,8 +10,6 @@ class CalculatorKey {
   final CalculatorKeyType type;
   final MaterialColor color;
   final Size size;
-
-  // Size get size => Size(keySideMin * type.aspectRatio, keySideMin);
 
   String get value => type.value;
 }

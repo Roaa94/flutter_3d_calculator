@@ -1,10 +1,10 @@
 import 'package:calculator_3d/utils/calculator_config.dart';
-import 'package:calculator_3d/utils/calculator_key.dart';
+import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:flutter/material.dart';
 
 typedef KeyBuilder = Widget Function(
   BuildContext context,
-  CalculatorKey key,
+  CalculatorKeyData key,
 );
 
 class CalculatorGrid extends StatelessWidget {
@@ -38,7 +38,7 @@ class CalculatorGrid extends StatelessWidget {
                     (index) {
                       return keyBuilder(
                         context,
-                        CalculatorKey(
+                        CalculatorKeyData(
                           type: CalculatorKeyType.fromNumber(index + 1),
                           color: config.baseColor,
                           size: Size(config.keySideMin, config.keySideMin),
@@ -53,7 +53,7 @@ class CalculatorGrid extends StatelessWidget {
                 children: [
                   keyBuilder(
                     context,
-                    CalculatorKey(
+                    CalculatorKeyData(
                       type: CalculatorKeyType.zero,
                       color: config.baseColor,
                       size: Size(config.keySideMin * 2 + config.keysGap,
@@ -63,7 +63,7 @@ class CalculatorGrid extends StatelessWidget {
                   SizedBox(width: config.keysGap),
                   keyBuilder(
                     context,
-                    CalculatorKey(
+                    CalculatorKeyData(
                       type: CalculatorKeyType.dot,
                       color: config.baseColor,
                       size: Size(config.keySideMin, config.keySideMin),
@@ -78,7 +78,7 @@ class CalculatorGrid extends StatelessWidget {
             children: [
               keyBuilder(
                 context,
-                CalculatorKey(
+                CalculatorKeyData(
                   type: CalculatorKeyType.plus,
                   color: Colors.orange,
                   size: Size(
@@ -90,7 +90,7 @@ class CalculatorGrid extends StatelessWidget {
               SizedBox(height: config.keysGap),
               keyBuilder(
                 context,
-                CalculatorKey(
+                CalculatorKeyData(
                   type: CalculatorKeyType.minus,
                   color: Colors.orange,
                   size: Size(
