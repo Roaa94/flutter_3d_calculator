@@ -39,6 +39,13 @@ class _CalculatorViewState extends State<CalculatorView>
     }
   }
 
+  void _handleKeyTap(CalculatorKeyType keyType) {
+    _playSound();
+    setState(() {
+      tappedKeyType = keyType;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -75,10 +82,7 @@ class _CalculatorViewState extends State<CalculatorView>
           CalculatorKeyType? calculatorKeyType =
               CalculatorKeyType.getFromKey(logicalKey);
           if (calculatorKeyType != null) {
-_playSound();
-            setState(() {
-              tappedKeyType = calculatorKeyType;
-            });
+            _handleKeyTap(calculatorKeyType);
             return KeyEventResult.handled;
           }
         }
@@ -125,12 +129,7 @@ _playSound();
                         config: widget.config,
                         keyBuilder: (context, CalculatorKeyData key) {
                           return GestureDetector(
-                            onTap: () {
-                              _playSound();
-                              setState(() {
-                                tappedKeyType = key.type;
-                              });
-                            },
+                            onTap: () => _handleKeyTap(key.type),
                             child: KeyTapEffect(
                               in3d: animationController.isCompleted,
                               onEnd: () {
