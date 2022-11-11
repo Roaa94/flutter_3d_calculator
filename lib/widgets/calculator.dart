@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
-import 'package:calculator_3d/widgets/calculator_key_face.dart';
-import 'package:calculator_3d/widgets/key_body_painter.dart';
+import 'package:calculator_3d/widgets/calculator_key.dart';
 import 'package:calculator_3d/widgets/key_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,88 +65,30 @@ class _CalculatorState extends State<Calculator>
                   transform: Matrix4.identity()
                     ..rotateZ((45 * animationController.value) * pi / 180),
                   alignment: Alignment.center,
-                  child: Stack(
-                    children: [
-                      CalculatorGrid(
-                        config: widget.config,
-                        keyBuilder: (context, CalculatorKeyData key) {
-                          return KeyTapEffect(
-                            isTapped: tappedKeyType == key.type,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: widget.config.keysHaveShadow
-                                    ? [
-                                        BoxShadow(
-                                          color: widget.config.keysShadowColor,
-                                          blurRadius: 10,
-                                          offset: Offset(
-                                            -5 * animationController.value,
-                                            20 * animationController.value,
-                                          ),
-                                        ),
-                                        BoxShadow(
-                                          color: widget.config.keysShadowColor,
-                                          blurRadius: 10,
-                                          offset: Offset(
-                                            15 * animationController.value,
-                                            35 * animationController.value,
-                                          ),
-                                        ),
-                                        BoxShadow(
-                                          color: widget.config.keysShadowColor,
-                                          blurRadius: 10,
-                                          offset: Offset(
-                                            30 * animationController.value,
-                                            50 * animationController.value,
-                                          ),
-                                        ),
-                                      ]
-                                    : [],
-                              ),
-                              child: SizedBox(
-                                width: key.size.width,
-                                height: key.size.height,
-                                child: CustomPaint(
-                                  painter: KeyBodyPainter(
-                                    keySize: key.size,
-                                    config: widget.config,
-                                    animation: animationController,
-                                    color: key.color,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
+                  child: CalculatorGrid(
+                    config: widget.config,
+                    keyBuilder: (context, CalculatorKeyData key) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            tappedKeyType = key.type;
+                          });
                         },
-                      ),
-                      CalculatorGrid(
-                        config: widget.config,
-                        keyBuilder: (context, CalculatorKeyData key) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                tappedKeyType = key.type;
-                              });
-                            },
-                            child: KeyTapEffect(
-                              onEnd: () {
-                                setState(() {
-                                  tappedKeyType = null;
-                                });
-                              },
-                              isTapped: tappedKeyType == key.type,
-                              child: CalculatorKeyFace(
-                                size: key.size,
-                                value: key.value,
-                                config: widget.config,
-                                color: key.color,
-                                animationController: animationController,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                        child: KeyTapEffect(
+                          onEnd: () {
+                            setState(() {
+                              tappedKeyType = null;
+                            });
+                          },
+                          isTapped: tappedKeyType == key.type,
+                          child: CalculatorKey(
+                            keyData: key,
+                            calculatorConfig: widget.config,
+                            animationController: animationController,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
