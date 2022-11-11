@@ -38,95 +38,90 @@ class _CalculatorState extends State<Calculator>
         children: [
           Expanded(
             child: AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) {
-                  final totalKeyWidth =
-                      Constants.squareKeySize.width + Constants.keysGap;
-                  final totalKeyHeight =
-                      Constants.squareKeySize.height + Constants.keysGap;
-                  return Transform.translate(
-                    offset: Offset(
-                      totalKeyWidth * 3 * _animationController.value,
-                      0,
-                    ),
-                    child: ColoredBox(
-                      color: Colors.red,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        alignment: Alignment.center,
-                        children: [
-                          ...List.generate(
-                            9,
-                            (index) {
-                              int itemsPerRow = 3;
-                              int colIndex = index % itemsPerRow;
-                              int rowIndex = index ~/ itemsPerRow;
+              animation: _animationController,
+              builder: (context, child) {
+                final totalKeyWidth =
+                    Constants.squareKeySize.width + Constants.keysGap;
+                final totalKeyHeight =
+                    Constants.squareKeySize.height + Constants.keysGap;
+                return ColoredBox(
+                  color: Colors.red,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      ...List.generate(
+                        9,
+                        (index) {
+                          int itemsPerRow = 3;
+                          int colIndex = index % itemsPerRow;
+                          int rowIndex = index ~/ itemsPerRow;
 
-                              double defaultLeft = colIndex * totalKeyWidth;
-                              double defaultTop = rowIndex * totalKeyHeight;
+                          double defaultLeft = colIndex * totalKeyWidth;
+                          double defaultTop = rowIndex * totalKeyHeight;
 
-                              double left = defaultLeft -
-                                  ((colIndex * 25 - rowIndex * 20) *
-                                      _animationController.value) -
-                                  (defaultTop * _animationController.value);
+                          double left = defaultLeft -
+                              ((colIndex * 25 - rowIndex * 20) *
+                                  _animationController.value) -
+                              (defaultTop * _animationController.value);
 
-                              double top = defaultTop +
-                                  (((defaultLeft * 0.5) -
-                                          (defaultTop * 0.5) -
-                                          colIndex * 15 -
-                                          rowIndex * 15) *
-                                      _animationController.value);
+                          double top = defaultTop +
+                              (((defaultLeft * 0.5) -
+                                      (defaultTop * 0.5) -
+                                      colIndex * 15 -
+                                      rowIndex * 15) *
+                                  _animationController.value);
 
-                              return Positioned(
-                                left: left,
-                                top: top,
-                                child: CalculatorKey(
-                                  value: '${index + 1}',
-                                  animationController: _animationController,
-                                ),
-                              );
-                            },
-                          ),
-                          Positioned(
-                            top: totalKeyHeight * 3,
-                            left: 0,
+                          return Positioned(
+                            left: left,
+                            top: top,
                             child: CalculatorKey(
-                              value: '0',
-                              size: Constants.recHKeySize,
+                              value: '${index + 1}',
                               animationController: _animationController,
                             ),
-                          ),
-                          Positioned(
-                            top: totalKeyHeight * 3,
-                            left: totalKeyWidth * 2,
-                            child: CalculatorKey(
-                              animationController: _animationController,
-                              value: '.',
-                            ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            left: totalKeyWidth * 3,
-                            child: CalculatorKey(
-                              size: Constants.recVKeySize,
-                              animationController: _animationController,
-                              value: '+',
-                            ),
-                          ),
-                          Positioned(
-                            top: totalKeyWidth * 2,
-                            left: totalKeyWidth * 3,
-                            child: CalculatorKey(
-                              value: '-',
-                              size: Constants.recVKeySize,
-                              animationController: _animationController,
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                  );
-                }),
+                      Positioned(
+                        top: totalKeyHeight * 3,
+                        left: 0,
+                        child: CalculatorKey(
+                          value: '0',
+                          size: Constants.recHKeySize,
+                          animationController: _animationController,
+                        ),
+                      ),
+                      Positioned(
+                        top: totalKeyHeight * 3,
+                        left: totalKeyWidth * 2,
+                        child: CalculatorKey(
+                          animationController: _animationController,
+                          value: '.',
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: totalKeyWidth * 3,
+                        child: CalculatorKey(
+                          size: Constants.recVKeySize,
+                          animationController: _animationController,
+                          value: '+',
+                        ),
+                      ),
+                      Positioned(
+                        top: totalKeyWidth * 2,
+                        left: totalKeyWidth * 3,
+                        child: CalculatorKey(
+                          value: '-',
+                          size: Constants.recVKeySize,
+                          animationController: _animationController,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
           ElevatedButton(
             onPressed: () {
