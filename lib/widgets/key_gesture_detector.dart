@@ -15,7 +15,7 @@ class KeyTapEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      duration: const Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 100),
       curve: Curves.easeInOut,
       tween: Tween<double>(begin: 0, end: isTapped ? 40 : 0),
       onEnd: onEnd,

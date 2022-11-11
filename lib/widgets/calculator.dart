@@ -24,7 +24,7 @@ class _CalculatorState extends State<Calculator>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<double> scaleAnimation;
-  final FocusNode focusNode = FocusNode();
+  final FocusNode keyboardListenerFocusNode = FocusNode();
   CalculatorKeyType? tappedKeyType;
 
   @override
@@ -46,66 +46,78 @@ class _CalculatorState extends State<Calculator>
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardListener(
-      focusNode: focusNode,
-      onKeyEvent: (KeyEvent event) {
-        if (event is KeyDownEvent) {
-          print(event);
+    return Focus(
+      focusNode: keyboardListenerFocusNode,
+      onKey: (node, RawKeyEvent event) {
+        if (event is RawKeyDownEvent && animationController.isCompleted) {
+          final logicalKey = event.data.logicalKey;
+          CalculatorKeyType? calculatorKeyType =
+              CalculatorKeyType.getFromKey(logicalKey);
+          if (calculatorKeyType != null) {
+            setState(() {
+              tappedKeyType = calculatorKeyType;
+            });
+            return KeyEventResult.handled;
+          }
         }
+        return KeyEventResult.ignored;
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: AnimatedBuilder(
-              animation: animationController,
-              builder: (context, child) => Transform.scale(
-                scaleY: scaleAnimation.value,
-                child: Transform(
-                  transform: Matrix4.identity()
-                    ..rotateZ((45 * animationController.value) * pi / 180),
-                  alignment: Alignment.center,
-                  child: CalculatorGrid(
-                    config: widget.config,
-                    keyBuilder: (context, CalculatorKeyData key) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            tappedKeyType = key.type;
-                          });
-                        },
-                        child: KeyTapEffect(
-                          onEnd: () {
+      child: Builder(builder: (context) {
+        FocusScope.of(context).requestFocus(keyboardListenerFocusNode);
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: AnimatedBuilder(
+                animation: animationController,
+                builder: (context, child) => Transform.scale(
+                  scaleY: scaleAnimation.value,
+                  child: Transform(
+                    transform: Matrix4.identity()
+                      ..rotateZ((45 * animationController.value) * pi / 180),
+                    alignment: Alignment.center,
+                    child: CalculatorGrid(
+                      config: widget.config,
+                      keyBuilder: (context, CalculatorKeyData key) {
+                        return GestureDetector(
+                          onTap: () {
                             setState(() {
-                              tappedKeyType = null;
+                              tappedKeyType = key.type;
                             });
                           },
-                          isTapped: tappedKeyType == key.type,
-                          child: CalculatorKey(
-                            keyData: key,
-                            calculatorConfig: widget.config,
-                            animationController: animationController,
+                          child: KeyTapEffect(
+                            onEnd: () {
+                              setState(() {
+                                tappedKeyType = null;
+                              });
+                            },
+                            isTapped: tappedKeyType == key.type,
+                            child: CalculatorKey(
+                              keyData: key,
+                              calculatorConfig: widget.config,
+                              animationController: animationController,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (animationController.isCompleted) {
-                animationController.reverse();
-              } else {
-                animationController.forward();
-              }
-            },
-            child: const Text('Toggle Animation!'),
-          ),
-        ],
-      ),
+            ElevatedButton(
+              onPressed: () {
+                if (animationController.isCompleted) {
+                  animationController.reverse();
+                } else {
+                  animationController.forward();
+                }
+              },
+              child: const Text('Toggle Animation!'),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

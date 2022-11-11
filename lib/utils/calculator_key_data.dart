@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CalculatorKeyData {
   CalculatorKeyData({
@@ -102,6 +103,38 @@ enum CalculatorKeyType {
       case 9:
       default:
         return nine;
+    }
+  }
+
+  static CalculatorKeyType? getFromKey(LogicalKeyboardKey key) {
+    if (key == LogicalKeyboardKey.digit0) {
+      return CalculatorKeyType.zero;
+    } else if (key == LogicalKeyboardKey.digit1) {
+      return CalculatorKeyType.one;
+    } else if (key == LogicalKeyboardKey.digit2) {
+      return CalculatorKeyType.two;
+    } else if (key == LogicalKeyboardKey.digit3) {
+      return CalculatorKeyType.three;
+    } else if (key == LogicalKeyboardKey.digit4) {
+      return CalculatorKeyType.four;
+    } else if (key == LogicalKeyboardKey.digit5) {
+      return CalculatorKeyType.five;
+    } else if (key == LogicalKeyboardKey.digit6) {
+      return CalculatorKeyType.six;
+    } else if (key == LogicalKeyboardKey.digit7) {
+      return CalculatorKeyType.seven;
+    } else if (key == LogicalKeyboardKey.digit8) {
+      return CalculatorKeyType.eight;
+    } else if (key == LogicalKeyboardKey.digit9) {
+      return CalculatorKeyType.nine;
+    } else if (key == LogicalKeyboardKey.add) {
+      return CalculatorKeyType.plus;
+    } else if (key == LogicalKeyboardKey.minus) {
+      return CalculatorKeyType.minus;
+    } else if (key == LogicalKeyboardKey.period) {
+      return CalculatorKeyType.dot;
+    } else {
+      return null;
     }
   }
 }
