@@ -30,6 +30,15 @@ class _CalculatorViewState extends State<CalculatorView>
   final player = AudioPlayer();
   bool muted = false;
 
+  void _playSound() {
+    if (player.state == PlayerState.playing) {
+      player.stop();
+    }
+    if (!muted) {
+      player.play(AssetSource('keyboard_tap.wav'));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,12 +75,7 @@ class _CalculatorViewState extends State<CalculatorView>
           CalculatorKeyType? calculatorKeyType =
               CalculatorKeyType.getFromKey(logicalKey);
           if (calculatorKeyType != null) {
-            if (player.state == PlayerState.playing) {
-              player.stop();
-            }
-            if (!muted) {
-              player.play(AssetSource('keyboard_tap.wav'));
-            }
+_playSound();
             setState(() {
               tappedKeyType = calculatorKeyType;
             });
@@ -122,6 +126,7 @@ class _CalculatorViewState extends State<CalculatorView>
                         keyBuilder: (context, CalculatorKeyData key) {
                           return GestureDetector(
                             onTap: () {
+                              _playSound();
                               setState(() {
                                 tappedKeyType = key.type;
                               });
