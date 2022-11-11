@@ -27,10 +27,15 @@ class KeyFacePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    double aspectRatio = keySize.width / keySize.height;
+    double keyWidth = keySize.width + (aspectRatio > 1 ? Constants.keysGap : 0);
+    double keyHeight =
+        keySize.height + (aspectRatio < 1 ? Constants.keysGap : 0);
+
     final keyFacePaint = Paint()
       ..shader = ui.Gradient.linear(
-        Offset(0, keySize.height / 2),
-        Offset(keySize.width, keySize.height),
+        Offset(0, keyHeight / 2),
+        Offset(keyWidth, keyHeight),
         [
           Colors.blueGrey.shade100,
           Colors.blueGrey.shade200,
@@ -45,8 +50,8 @@ class KeyFacePainter extends CustomPainter {
           Rect.fromLTWH(
             0,
             0,
-            keySize.width - 4,
-            keySize.height - 4,
+            keyWidth - 4,
+            keyHeight - 4,
           ),
           const Radius.circular(Constants.keyBorderRadius),
         ),
@@ -57,8 +62,8 @@ class KeyFacePainter extends CustomPainter {
           Rect.fromLTWH(
             0,
             0,
-            keySize.width,
-            keySize.height,
+            keyWidth,
+            keyHeight,
           ),
           const Radius.circular(Constants.keyBorderRadius),
         ),
@@ -73,7 +78,7 @@ class KeyFacePainter extends CustomPainter {
       keyFacePath,
       keyFacePaint,
     );
-    final fontSize = keySize.width * 0.6;
+    final fontSize = keyWidth * 0.6;
     final textStyle = TextStyle(
       color: Colors.blueGrey.shade700,
       fontSize: fontSize,
@@ -104,10 +109,10 @@ class KeyFacePainter extends CustomPainter {
     );
     textPainter.layout(
       minWidth: 0,
-      maxWidth: keySize.width,
+      maxWidth: keyWidth,
     );
-    final xCenter = keySize.width / 2 - fontSize * 0.4;
-    final yCenter = keySize.height / 2 - fontSize * 0.65;
+    final xCenter = keyWidth / 2 - fontSize * 0.4;
+    final yCenter = keyHeight / 2 - fontSize * 0.65;
     final offset = Offset(xCenter, yCenter);
     textPainter.paint(canvas, offset);
   }

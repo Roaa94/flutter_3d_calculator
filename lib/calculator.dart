@@ -117,9 +117,9 @@ class _CalculatorState extends State<Calculator>
                             top: totalKeyWidth * 2,
                             left: totalKeyWidth * 3,
                             child: CalculatorKey(
+                              value: '-',
                               size: Constants.recVKeySize,
                               animationController: _animationController,
-                              value: '-',
                             ),
                           ),
                         ],

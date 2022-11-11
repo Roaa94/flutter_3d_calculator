@@ -39,10 +39,14 @@ class KeyBodyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    double aspectRatio = keySize.width / keySize.height;
     final paint = Paint()
       ..shader = ui.Gradient.linear(
         Offset(0, keySize.height),
-        Offset(keySize.width, 0),
+        Offset(
+          keySize.width,
+          keySize.height * (1 - aspectRatio),
+        ),
         [
           Colors.blueGrey.shade500,
           Colors.blueGrey.shade300,
