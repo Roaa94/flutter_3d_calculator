@@ -1,5 +1,5 @@
 import 'package:calculator_3d/utils/calculator_config.dart';
-import 'package:calculator_3d/widgets/calculator.dart';
+import 'package:calculator_3d/widgets/calculator_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
