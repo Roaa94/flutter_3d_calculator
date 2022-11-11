@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade300,
+      backgroundColor: Colors.blueGrey.shade200,
       body: Center(
         child: CalculatorView(
           config: CalculatorConfig(

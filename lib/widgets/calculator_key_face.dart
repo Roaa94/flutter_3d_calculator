@@ -57,9 +57,11 @@ class _CalculatorKeyFaceState extends State<CalculatorKeyFace> {
           borderRadius: BorderRadius.circular(15),
           gradient: LinearGradient(
             colors: [
-              widget.color.shade200,
               widget.color.shade50,
+              widget.color.shade200,
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
           boxShadow: [
             BoxShadow(
