@@ -74,59 +74,65 @@ class _CalculatorState extends State<Calculator>
       },
       child: Builder(builder: (context) {
         FocusScope.of(context).requestFocus(keyboardListenerFocusNode);
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: AnimatedBuilder(
-                animation: animationController,
-                builder: (context, child) => Transform.scale(
-                  scaleY: scaleAnimation.value,
-                  child: Transform(
-                    transform: Matrix4.identity()
-                      ..rotateZ((45 * animationController.value) * pi / 180),
-                    alignment: Alignment.center,
-                    child: CalculatorGrid(
-                      config: widget.config,
-                      keyBuilder: (context, CalculatorKeyData key) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              tappedKeyType = key.type;
-                            });
-                          },
-                          child: KeyTapEffect(
-                            in3d: animationController.isCompleted,
-                            onEnd: () {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 50),
+              Center(
+                child: AnimatedBuilder(
+                  animation: animationController,
+                  builder: (context, child) => Transform.scale(
+                    scaleY: scaleAnimation.value,
+                    child: Transform(
+                      transform: Matrix4.identity()
+                        ..rotateZ((45 * animationController.value) * pi / 180),
+                      alignment: Alignment.center,
+                      child: CalculatorGrid(
+                        config: widget.config,
+                        keyBuilder: (context, CalculatorKeyData key) {
+                          return GestureDetector(
+                            onTap: () {
                               setState(() {
-                                tappedKeyType = null;
+                                tappedKeyType = key.type;
                               });
                             },
-                            isTapped: tappedKeyType == key.type,
-                            child: CalculatorKey(
-                              keyData: key,
-                              calculatorConfig: widget.config,
-                              animationController: animationController,
+                            child: KeyTapEffect(
+                              in3d: animationController.isCompleted,
+                              onEnd: () {
+                                setState(() {
+                                  tappedKeyType = null;
+                                });
+                              },
+                              isTapped: tappedKeyType == key.type,
+                              child: CalculatorKey(
+                                keyData: key,
+                                calculatorConfig: widget.config,
+                                animationController: animationController,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (animationController.isCompleted) {
-                  animationController.reverse();
-                } else {
-                  animationController.forward();
-                }
-              },
-              child: const Text('Toggle Animation!'),
-            ),
-          ],
+              const SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: () {
+                  if (animationController.isCompleted) {
+                    animationController.reverse();
+                  } else {
+                    animationController.forward();
+                  }
+                },
+                child: const Text('Toggle Animation!'),
+              ),
+            ],
+          ),
         );
       }),
     );

@@ -9,11 +9,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade300,
-      body: Calculator(
-        config: CalculatorConfig(
-          keysGap: 20,
-          keySideMin: 100,
-          keysHaveShadow: true,
+      body: Center(
+        child: Calculator(
+          config: CalculatorConfig(
+            calculatorSide: 460,
+            // This can be used to have the calculator scale with the screen
+            // However the performance is not good and some glitches happen
+            // calculatorSide: screenSize.width * 0.6,
+            keysHaveShadow: true,
+          ),
         ),
       ),
     );

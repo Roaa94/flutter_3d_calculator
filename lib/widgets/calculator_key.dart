@@ -18,59 +18,27 @@ class CalculatorKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: calculatorConfig.keysHaveShadow
-            ? [
-                BoxShadow(
-                  color: calculatorConfig.keysShadowColor,
-                  blurRadius: 10,
-                  offset: Offset(
-                    -5 * animationController.value,
-                    20 * animationController.value,
-                  ),
-                ),
-                BoxShadow(
-                  color: calculatorConfig.keysShadowColor,
-                  blurRadius: 10,
-                  offset: Offset(
-                    15 * animationController.value,
-                    35 * animationController.value,
-                  ),
-                ),
-                BoxShadow(
-                  color: calculatorConfig.keysShadowColor,
-                  blurRadius: 10,
-                  offset: Offset(
-                    30 * animationController.value,
-                    50 * animationController.value,
-                  ),
-                ),
-              ]
-            : [],
-      ),
-      child: SizedBox(
-        width: keyData.size.width,
-        height: keyData.size.height,
-        child: Stack(
-          children: [
-            CustomPaint(
-              painter: KeyBodyPainter(
-                keySize: keyData.size,
-                config: calculatorConfig,
-                animation: animationController,
-                color: keyData.color,
-              ),
-            ),
-            CalculatorKeyFace(
-              size: keyData.size,
-              value: keyData.value,
+    return SizedBox(
+      width: keyData.size.width,
+      height: keyData.size.height,
+      child: Stack(
+        children: [
+          CustomPaint(
+            painter: KeyBodyPainter(
+              keySize: keyData.size,
               config: calculatorConfig,
+              animation: animationController,
               color: keyData.color,
-              animationController: animationController,
             ),
-          ],
-        ),
+          ),
+          CalculatorKeyFace(
+            size: keyData.size,
+            value: keyData.value,
+            config: calculatorConfig,
+            color: keyData.color,
+            animationController: animationController,
+          ),
+        ],
       ),
     );
   }

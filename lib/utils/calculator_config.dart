@@ -2,34 +2,30 @@ import 'package:flutter/material.dart';
 
 class CalculatorConfig {
   CalculatorConfig({
-    this.keySideMin = 100,
-    this.keysGap = 20,
+    required this.calculatorSide,
     this.animationCurve = Curves.easeIn,
     this.keyBorderRadius = 15,
     this.keysHaveShadow = true,
     this.baseColor = Colors.blueGrey,
   });
 
-  final double keySideMin;
   final double keyBorderRadius;
   final bool keysHaveShadow;
   final MaterialColor baseColor;
 
   final Color keysShadowColor = Colors.blueGrey.shade900.withOpacity(0.3);
 
-  final double keysGap;
+  double get keysGap => calculatorSide * 0.04;
   final Curve animationCurve;
 
   final int keysPerRow = 4;
-  final int keysPerCol = 4;
 
   double get fontSize => keySideMin * 0.6;
 
-  double get calculatorWidth =>
-      keysPerRow * keySideMin + (keysGap * (keysPerRow - 1));
+  final double calculatorSide;
 
-  double get calculatorHeight =>
-      keysPerCol * keySideMin + (keysGap * (keysPerCol - 1));
+  double get keySideMin =>
+      (calculatorSide - (keysGap * (keysPerRow - 1))) / keysPerRow;
 
-  Size get calculatorSize => Size(calculatorWidth, calculatorHeight);
+  Size get calculatorSize => Size(calculatorSide, calculatorSide);
 }

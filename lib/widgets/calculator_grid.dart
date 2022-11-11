@@ -20,94 +20,100 @@ class CalculatorGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: config.calculatorWidth,
-      height: config.calculatorHeight,
-      child: Row(
-        children: [
-          Column(
-            children: [
-              SizedBox(
-                width: 300 + config.keysGap * 2,
-                height: 300 + config.keysGap * 2,
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: config.keysGap,
-                  mainAxisSpacing: config.keysGap,
-                  children: List.generate(
-                    9,
-                    (index) {
-                      int itemsPerRow = 3;
-                      int colIndex = index % itemsPerRow;
-                      int reverseColIndex = itemsPerRow - colIndex - 1;
+      width: config.calculatorSide,
+      height: config.calculatorSide,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        child: Row(
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  width: config.calculatorSide - config.keySideMin - config.keysGap,
+                  height: config.calculatorSide - config.keySideMin - config.keysGap,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: config.keysGap,
+                    mainAxisSpacing: config.keysGap,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: List.generate(
+                      9,
+                      (index) {
+                        int itemsPerRow = 3;
+                        int colIndex = index % itemsPerRow;
+                        int reverseColIndex = itemsPerRow - colIndex - 1;
 
-                      return keyBuilder(
-                        context,
-                        CalculatorKeyData(
-                          type: CalculatorKeyType.fromNumber(
-                            (9 - index) + colIndex - reverseColIndex,
+                        return keyBuilder(
+                          context,
+                          CalculatorKeyData(
+                            type: CalculatorKeyType.fromNumber(
+                              (9 - index) + colIndex - reverseColIndex,
+                            ),
+                            color: config.baseColor,
+                            size: Size(config.keySideMin, config.keySideMin),
                           ),
-                          color: config.baseColor,
-                          size: Size(config.keySideMin, config.keySideMin),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(height: config.keysGap),
-              Row(
-                children: [
-                  keyBuilder(
-                    context,
-                    CalculatorKeyData(
-                      type: CalculatorKeyType.zero,
-                      color: config.baseColor,
-                      size: Size(config.keySideMin * 2 + config.keysGap,
-                          config.keySideMin),
+                        );
+                      },
                     ),
                   ),
-                  SizedBox(width: config.keysGap),
-                  keyBuilder(
-                    context,
-                    CalculatorKeyData(
-                      type: CalculatorKeyType.dot,
-                      color: config.baseColor,
-                      size: Size(config.keySideMin, config.keySideMin),
+                ),
+                SizedBox(height: config.keysGap),
+                Row(
+                  children: [
+                    keyBuilder(
+                      context,
+                      CalculatorKeyData(
+                        type: CalculatorKeyType.zero,
+                        color: config.baseColor,
+                        size: Size(config.keySideMin * 2 + config.keysGap,
+                            config.keySideMin),
+                      ),
+                    ),
+                    SizedBox(width: config.keysGap),
+                    keyBuilder(
+                      context,
+                      CalculatorKeyData(
+                        type: CalculatorKeyType.dot,
+                        color: config.baseColor,
+                        size: Size(config.keySideMin, config.keySideMin),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(width: config.keysGap),
+            Column(
+              children: [
+                keyBuilder(
+                  context,
+                  CalculatorKeyData(
+                    type: CalculatorKeyType.plus,
+                    color: Colors.orange,
+                    size: Size(
+                      config.keySideMin,
+                      config.keySideMin * 2 + config.keysGap,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(width: config.keysGap),
-          Column(
-            children: [
-              keyBuilder(
-                context,
-                CalculatorKeyData(
-                  type: CalculatorKeyType.plus,
-                  color: Colors.orange,
-                  size: Size(
-                    config.keySideMin,
-                    config.keySideMin * 2 + config.keysGap,
+                ),
+                SizedBox(height: config.keysGap),
+                keyBuilder(
+                  context,
+                  CalculatorKeyData(
+                    type: CalculatorKeyType.minus,
+                    color: Colors.orange,
+                    size: Size(
+                      config.keySideMin,
+                      config.keySideMin * 2 + config.keysGap,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: config.keysGap),
-              keyBuilder(
-                context,
-                CalculatorKeyData(
-                  type: CalculatorKeyType.minus,
-                  color: Colors.orange,
-                  size: Size(
-                    config.keySideMin,
-                    config.keySideMin * 2 + config.keysGap,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
