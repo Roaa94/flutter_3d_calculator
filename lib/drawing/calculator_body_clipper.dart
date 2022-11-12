@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,14 +18,25 @@ class CalculatorBodyClipper extends CustomClipper<Path> {
     double gapOffset = config.keysGap * 0.5;
     double keysArea =
         config.calculatorSide + config.keysGap + config.calculatorPadding * 2;
-    double maxDistance = config.calculatorSideWithDistance + config.calculatorPadding * 2 + 20;
+    double maxDistance =
+        config.calculatorSideWithDistance + config.calculatorPadding * 2 + 20;
     path
-      ..moveTo(keysArea, -gapOffset)
-      ..lineTo(keysArea, keysArea)
-      ..lineTo(-gapOffset, keysArea)
-      ..lineTo(-gapOffset, maxDistance)
-      ..lineTo(maxDistance, maxDistance)
-      ..lineTo(maxDistance, -gapOffset)
+      ..moveTo(keysArea, -gapOffset) // 1
+      ..lineTo(keysArea, keysArea - config.keyBorderRadius) // 2 - 1
+      ..arcTo(
+        Rect.fromPoints(
+          Offset(keysArea - config.keyBorderRadius, keysArea),
+          Offset(keysArea, keysArea - config.keyBorderRadius),
+        ),
+        0,
+        90 * pi / 180,
+        false,
+      ) // 2 - 2
+      // ..lineTo(keysArea - 15, keysArea) // 2 - 2
+      ..lineTo(-gapOffset, keysArea) // 3
+      ..lineTo(-gapOffset, maxDistance) // 4
+      ..lineTo(maxDistance, maxDistance) // 5
+      ..lineTo(maxDistance, -gapOffset) // 6
       ..close();
     return path;
   }

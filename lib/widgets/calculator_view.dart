@@ -74,6 +74,7 @@ class _CalculatorViewState extends State<CalculatorView>
 
         return Transform.scale(
           scaleY: scaleAnimation.value,
+          alignment: Alignment.center,
           child: Transform(
             transform: Matrix4.identity()
               ..rotateZ((45 * animationController.value) * pi / 180),
