@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
+import 'package:calculator_3d/widgets/calculator_body_back.dart';
 import 'package:calculator_3d/widgets/calculator_body_front.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
 import 'package:calculator_3d/widgets/calculator_key.dart';
@@ -85,13 +86,11 @@ class _CalculatorViewState extends State<CalculatorView>
                   top: bodyOffset - widget.config.calculatorPadding,
                   right: -(bodyOffset + widget.config.calculatorPadding),
                   bottom: -(bodyOffset + widget.config.calculatorPadding),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: widget.config.baseColor.shade700,
-                      borderRadius: BorderRadius.circular(
-                        widget.config.keyBorderRadius,
-                      ),
-                    ),
+                  child: CalculatorBodyBack(
+                    config: widget.config,
+                    glowOffsetAnimation: glowOffsetAnimation,
+                    rimSide: rimSide,
+                    animationController: animationController,
                   ),
                 ),
                 Padding(
