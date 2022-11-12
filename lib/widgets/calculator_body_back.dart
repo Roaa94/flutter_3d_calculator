@@ -55,7 +55,7 @@ class CalculatorBodyBack extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  config.baseColor.shade900,
+                  config.baseColor.shade800,
                   config.baseColor.shade500,
                 ],
                 begin: Alignment.bottomLeft,
