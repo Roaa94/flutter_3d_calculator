@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_view.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,38 +18,33 @@ class _HomePageState extends State<HomePage>
   late final AnimationController animationController;
   late final Animation<double> scaleAnimation;
   final FocusNode keyboardListenerFocusNode = FocusNode();
-  final Set<CalculatorKeyType> tappedDownKeys = {};
-  final Map<CalculatorKeyType, AudioPlayer> audioPlayerMap = {};
+  final tappedKeyTypes = <CalculatorKeyType>{};
   bool muted = false;
 
-  void _playDownSound(CalculatorKeyType keyType) {
-    final player = audioPlayerMap[keyType]!;
-    if (player.state == PlayerState.playing) {
-      player.stop();
-    }
+  void _playSound(String assetName) {
     if (!muted) {
-      player.play(AssetSource('keyboard_tap_down.wav'));
+      FlameAudio.play("../$assetName");
     }
   }
 
-  void _playUpSound(CalculatorKeyType keyType) {
-    final player = audioPlayerMap[keyType]!;
-    if (player.state == PlayerState.playing) {
-      player.stop();
+  void _onKeyDown(CalculatorKeyType keyType) async {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      HapticFeedback.mediumImpact();
     }
-    if (!muted) {
-      player.play(AssetSource('keyboard_tap_up.wav'));
-    }
+
+    setState(() {
+      tappedKeyTypes.add(keyType);
+    });
+
+    _playSound('keyboard_down.wav');
   }
 
-  void _onKeyTapDown(CalculatorKeyType keyType) {
-    if (tappedDownKeys.add(keyType)) {
-      if (defaultTargetPlatform == TargetPlatform.iOS) {
-        HapticFeedback.mediumImpact();
-      }
-      _playDownSound(keyType);
-      setState(() {});
-    }
+  void _onKeyUp(CalculatorKeyType keyType) async {
+    setState(() {
+      tappedKeyTypes.remove(keyType);
+    });
+
+    _playSound('keyboard_up.wav');
   }
 
   void _onKeyTapUp(CalculatorKeyType keyType) {
@@ -76,9 +71,8 @@ class _HomePageState extends State<HomePage>
       final logicalKey = event.data.logicalKey;
       CalculatorKeyType? calculatorKeyType =
           CalculatorKeyType.getFromKey(logicalKey);
-      if (calculatorKeyType != null &&
-          !tappedDownKeys.contains(calculatorKeyType)) {
-        _onKeyTapDown(calculatorKeyType);
+      if (calculatorKeyType != null && !event.repeat) {
+        _onKeyDown(calculatorKeyType);
         return KeyEventResult.handled;
       }
     } else if (event is RawKeyUpEvent) {
@@ -86,7 +80,7 @@ class _HomePageState extends State<HomePage>
       CalculatorKeyType? calculatorKeyType =
           CalculatorKeyType.getFromKey(logicalKey);
       if (calculatorKeyType != null) {
-        _onKeyTapUp(calculatorKeyType);
+        _onKeyUp(calculatorKeyType);
         return KeyEventResult.handled;
       }
     }
@@ -100,9 +94,9 @@ class _HomePageState extends State<HomePage>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    for (var keyType in CalculatorKeyType.values) {
-      audioPlayerMap[keyType] = AudioPlayer();
-    }
+    // for (var keyType in CalculatorKeyType.values) {
+    //   audioPlayerMap[keyType] = AudioPlayer();
+    // }
   }
 
   @override
@@ -150,9 +144,9 @@ class _HomePageState extends State<HomePage>
               Center(
                 child: CalculatorView(
                   animationController: animationController,
-                  onKeyTapDown: _onKeyTapDown,
-                  tappedDownKeys: tappedDownKeys,
-                  onKeyTapUp: _onKeyTapUp,
+                  onKeyDown: _onKeyDown,
+                  onKeyUp: _onKeyUp,
+                  currentTappedKeys: tappedKeyTypes,
                   config: CalculatorConfig(
                     calculatorSide: size,
                     autoTransform: false,
