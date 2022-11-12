@@ -28,11 +28,19 @@ class CalculatorGrid extends StatelessWidget {
         child: Row(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  width: config.calculatorSide - config.keySideMin - config.keysGap,
-                  height: config.calculatorSide - config.keySideMin - config.keysGap,
+                  width: config.calculatorSide -
+                      config.keySideMin -
+                      config.keysGap,
+                  height: config.calculatorSide -
+                      config.keySideMin -
+                      config.keysGap,
                   child: GridView.count(
+                    padding: EdgeInsets.zero,
                     crossAxisCount: 3,
                     crossAxisSpacing: config.keysGap,
                     mainAxisSpacing: config.keysGap,
