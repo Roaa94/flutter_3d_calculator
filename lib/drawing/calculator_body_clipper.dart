@@ -22,11 +22,11 @@ class CalculatorBodyClipper extends CustomClipper<Path> {
         config.calculatorSideWithDistance + config.calculatorPadding * 2 + 20;
     path
       ..moveTo(keysArea, -gapOffset) // 1
-      ..lineTo(keysArea, keysArea - config.keyBorderRadius) // 2 - 1
+      ..lineTo(keysArea, keysArea - config.borderRadius) // 2 - 1
       ..arcTo(
         Rect.fromPoints(
-          Offset(keysArea - config.keyBorderRadius, keysArea),
-          Offset(keysArea, keysArea - config.keyBorderRadius),
+          Offset(keysArea - config.borderRadius, keysArea),
+          Offset(keysArea, keysArea - config.borderRadius),
         ),
         0,
         90 * pi / 180,

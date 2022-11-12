@@ -4,13 +4,13 @@ class CalculatorConfig {
   CalculatorConfig({
     required this.calculatorSide,
     this.animationCurve = Curves.easeIn,
-    this.keyBorderRadius = 15,
+    this.borderRadius = 15,
     this.keysHaveShadow = true,
     this.baseColor = Colors.blueGrey,
     this.autoTransform = true,
   });
 
-  final double keyBorderRadius;
+  final double borderRadius;
   final bool keysHaveShadow;
   final MaterialColor baseColor;
   final bool autoTransform;

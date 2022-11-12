@@ -34,7 +34,7 @@ class CalculatorBodyBack extends StatelessWidget {
           end: Alignment.topRight,
         ),
         borderRadius: BorderRadius.circular(
-          config.keyBorderRadius,
+          config.borderRadius,
         ),
         boxShadow: [
           BoxShadow(
@@ -62,14 +62,14 @@ class CalculatorBodyBack extends StatelessWidget {
                 end: Alignment.topRight,
               ),
               borderRadius: BorderRadius.circular(
-                config.keyBorderRadius,
+                config.borderRadius,
               ),
             ),
             child: Container(
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
-                  config.keyBorderRadius,
+                  config.borderRadius,
                 ),
                 gradient: LinearGradient(
                   colors: [

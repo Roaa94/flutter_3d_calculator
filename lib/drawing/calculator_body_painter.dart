@@ -44,19 +44,19 @@ class CalculatorBodyPainter extends CustomPainter {
       [0.01, 0.2, 0.49, 0.52, 0.6, 0.9],
     );
     double borderRadiusOffset =
-        (config.keyBorderRadius * sqrt(2) - config.keyBorderRadius) / sqrt(2);
+        (config.borderRadius * sqrt(2) - config.borderRadius) / sqrt(2);
     double distance = distanceAnimation.value;
     final bodyPath = Path()
       ..addRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
-          Radius.circular(config.keyBorderRadius),
+          Radius.circular(config.borderRadius),
         ),
       )
       ..addRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(distance, distance, size.width, size.height),
-          Radius.circular(config.keyBorderRadius),
+          Radius.circular(config.borderRadius),
         ),
       )
       ..moveTo(size.width - borderRadiusOffset, borderRadiusOffset)

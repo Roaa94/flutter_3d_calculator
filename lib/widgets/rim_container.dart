@@ -22,7 +22,7 @@ class RimContainer extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
-          config.keyBorderRadius,
+          config.borderRadius,
         ),
         gradient: LinearGradient(
           colors: [

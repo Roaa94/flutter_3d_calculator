@@ -58,19 +58,19 @@ class KeyBodyPainter extends CustomPainter {
       );
 
     double borderRadiusOffset =
-        (config.keyBorderRadius * sqrt(2) - config.keyBorderRadius) / sqrt(2);
+        (config.borderRadius * sqrt(2) - config.borderRadius) / sqrt(2);
     double distance = distanceAnimation.value;
     final path = Path()
       ..addRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, keySize.width, keySize.height),
-          Radius.circular(config.keyBorderRadius),
+          Radius.circular(config.borderRadius),
         ),
       )
       ..addRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(distance, distance, keySize.width, keySize.height),
-          Radius.circular(config.keyBorderRadius),
+          Radius.circular(config.borderRadius),
         ),
       )
       ..moveTo(keySize.width - borderRadiusOffset, borderRadiusOffset)
