@@ -2,6 +2,7 @@ import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_view.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,6 +28,10 @@ class _HomePageState extends State<HomePage>
   }
 
   void _onKeyDown(CalculatorKeyType keyType) async {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      HapticFeedback.mediumImpact();
+    }
+
     setState(() {
       tappedKeyTypes.add(keyType);
     });
