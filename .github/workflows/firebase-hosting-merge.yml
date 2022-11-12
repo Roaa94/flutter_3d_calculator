@@ -19,4 +19,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLUTTER_3D_CALCULATOR }}'
+          channelId: live
           projectId: flutter-3d-calculator
