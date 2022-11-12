@@ -31,11 +31,9 @@ class _HomePageState extends State<HomePage>
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       HapticFeedback.mediumImpact();
     }
-
     setState(() {
       tappedKeyTypes.add(keyType);
     });
-
     _playSound('keyboard_down.wav');
   }
 
@@ -43,18 +41,7 @@ class _HomePageState extends State<HomePage>
     setState(() {
       tappedKeyTypes.remove(keyType);
     });
-
     _playSound('keyboard_up.wav');
-  }
-
-  void _onKeyTapUp(CalculatorKeyType keyType) {
-    if (tappedDownKeys.remove(keyType)) {
-      if (defaultTargetPlatform == TargetPlatform.iOS) {
-        HapticFeedback.mediumImpact();
-      }
-      _playUpSound(keyType);
-      setState(() {});
-    }
   }
 
   KeyEventResult _handleKeyboardEvent(FocusNode node, RawKeyEvent event) {
