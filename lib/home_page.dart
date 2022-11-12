@@ -47,6 +47,16 @@ class _HomePageState extends State<HomePage>
     _playSound('keyboard_up.wav');
   }
 
+  void _onKeyTapUp(CalculatorKeyType keyType) {
+    if (tappedDownKeys.remove(keyType)) {
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        HapticFeedback.mediumImpact();
+      }
+      _playUpSound(keyType);
+      setState(() {});
+    }
+  }
+
   KeyEventResult _handleKeyboardEvent(FocusNode node, RawKeyEvent event) {
     if (event is RawKeyDownEvent) {
       if (event.data.physicalKey == PhysicalKeyboardKey.tab) {
@@ -84,6 +94,9 @@ class _HomePageState extends State<HomePage>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+    // for (var keyType in CalculatorKeyType.values) {
+    //   audioPlayerMap[keyType] = AudioPlayer();
+    // }
   }
 
   @override
