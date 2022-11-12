@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:calculator_3d/drawing/calculator_body_clipper.dart';
-import 'package:calculator_3d/drawing/calculator_body_painter.dart';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
+import 'package:calculator_3d/widgets/calculator_body_front.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
 import 'package:calculator_3d/widgets/calculator_key.dart';
 import 'package:calculator_3d/widgets/key_gesture_detector.dart';
@@ -122,44 +121,11 @@ class _CalculatorViewState extends State<CalculatorView>
                   top: bodyOffset - widget.config.calculatorPadding,
                   right: -(bodyOffset + widget.config.calculatorPadding),
                   bottom: -(bodyOffset + widget.config.calculatorPadding),
-                  child: ClipPath(
-                    clipper: CalculatorBodyClipper(config: widget.config),
-                    child: CustomPaint(
-                      painter: CalculatorBodyPainter(
-                        config: widget.config,
-                        animationController: animationController,
-                      ),
-                      child: Center(
-                        child: Container(
-                          width: rimSide,
-                          height: rimSide,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              widget.config.keyBorderRadius,
-                            ),
-                            gradient: LinearGradient(
-                              colors: [
-                                widget.config.baseColor.shade300,
-                                widget.config.baseColor.shade200,
-                                widget.config.baseColor.shade100,
-                                widget.config.baseColor.shade50,
-                              ],
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              stops: const [0.01, 0.49, 0.52, 0.7],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.white.withOpacity(0.8),
-                                offset: glowOffsetAnimation.value,
-                                blurRadius: 6,
-                                blurStyle: BlurStyle.solid,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CalculatorBodyFront(
+                    config: widget.config,
+                    glowOffsetAnimation: glowOffsetAnimation,
+                    rimSide: rimSide,
+                    animationController: animationController,
                   ),
                 ),
               ],
