@@ -69,6 +69,12 @@ class CalculatorBodyPainter extends CustomPainter {
         size.height + distance - borderRadiusOffset,
       )
       ..lineTo(borderRadiusOffset, size.height - borderRadiusOffset);
+    canvas.drawShadow(
+      bodyPath,
+      config.baseColor.shade700.withOpacity(0.5),
+      5,
+      false,
+    );
     canvas.drawPath(bodyPath, bodyPaint);
   }
 

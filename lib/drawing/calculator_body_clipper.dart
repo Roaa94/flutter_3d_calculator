@@ -16,7 +16,7 @@ class CalculatorBodyClipper extends CustomClipper<Path> {
     double gapOffset = config.keysGap * 0.5;
     double keysArea =
         config.calculatorSide + config.keysGap + config.calculatorPadding * 2;
-    double maxDistance = config.calculatorSideWithDistance + config.calculatorPadding * 2;
+    double maxDistance = config.calculatorSideWithDistance + config.calculatorPadding * 2 + 20;
     path
       ..moveTo(keysArea, -gapOffset)
       ..lineTo(keysArea, keysArea)

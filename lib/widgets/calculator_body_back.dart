@@ -36,6 +36,12 @@ class CalculatorBodyBack extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           config.keyBorderRadius,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: config.baseColor.shade900.withOpacity(0.4),
+            blurRadius: 20,
+          ),
+        ],
       ),
       child: Center(
         child: RimContainer(
