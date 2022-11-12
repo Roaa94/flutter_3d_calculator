@@ -130,6 +130,27 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               const SizedBox(height: 70),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    Text(
+                      '@roaakdm',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'A 3d-ish/Isometric Calculator built with Flutter 💙',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    Text(
+                      'Inspired by a CSS implementation',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
