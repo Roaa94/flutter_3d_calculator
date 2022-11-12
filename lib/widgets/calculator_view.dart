@@ -16,14 +16,14 @@ class CalculatorView extends StatefulWidget {
     required this.animationController,
     required this.onKeyTap,
     required this.onKeyAnimationEnd,
-    required this.currentTappedKey,
+    required this.currentTappedKeys,
   });
 
   final CalculatorConfig config;
   final AnimationController animationController;
   final ValueChanged<CalculatorKeyType> onKeyTap;
-  final VoidCallback onKeyAnimationEnd;
-  final CalculatorKeyType? currentTappedKey;
+  final void Function(CalculatorKeyType) onKeyAnimationEnd;
+  final Set<CalculatorKeyType> currentTappedKeys;
 
   @override
   State<CalculatorView> createState() => _CalculatorViewState();
@@ -102,10 +102,10 @@ class _CalculatorViewState extends State<CalculatorView>
                       return GestureDetector(
                         onTap: () => widget.onKeyTap(key.type),
                         child: KeyTapEffect(
-                        config: widget.config,
+                          config: widget.config,
                           in3d: animationController.isCompleted,
-                          onEnd: widget.onKeyAnimationEnd,
-                          isTapped: widget.currentTappedKey == key.type,
+                          onEnd: () => widget.onKeyAnimationEnd(key.type),
+                          isTapped: widget.currentTappedKeys.contains(key.type),
                           child: CalculatorKey(
                             keyData: key,
                             calculatorConfig: widget.config,

@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage>
   late final AnimationController animationController;
   late final Animation<double> scaleAnimation;
   final FocusNode keyboardListenerFocusNode = FocusNode();
-  CalculatorKeyType? tappedKeyType;
+  final tappedKeyTypes = <CalculatorKeyType>{};
   final player = AudioPlayer();
   bool muted = false;
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage>
   void _onKeyTap(CalculatorKeyType keyType) {
     _playSound();
     setState(() {
-      tappedKeyType = keyType;
+      tappedKeyTypes.add(keyType);
     });
   }
 
@@ -114,10 +114,10 @@ class _HomePageState extends State<HomePage>
                 child: CalculatorView(
                   animationController: animationController,
                   onKeyTap: _onKeyTap,
-                  currentTappedKey: tappedKeyType,
-                  onKeyAnimationEnd: () {
+                  currentTappedKeys: tappedKeyTypes,
+                  onKeyAnimationEnd: (keyType) {
                     setState(() {
-                      tappedKeyType = null;
+                      tappedKeyTypes.remove(keyType);
                     });
                   },
                   config: CalculatorConfig(
@@ -143,6 +143,7 @@ class _HomePageState extends State<HomePage>
                     SizedBox(height: 5),
                     Text(
                       'A 3d-ish/Isometric Calculator built with Flutter 💙',
+
                       style: TextStyle(fontSize: 12),
                     ),
                     Text(
