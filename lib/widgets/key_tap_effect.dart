@@ -1,3 +1,4 @@
+import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:flutter/material.dart';
 
 class KeyTapEffect extends StatelessWidget {
@@ -7,8 +8,10 @@ class KeyTapEffect extends StatelessWidget {
     required this.child,
     this.isTapped = false,
     required this.in3d,
+    required this.config,
   });
 
+  final CalculatorConfig config;
   final VoidCallback? onEnd;
   final Widget child;
   final bool isTapped;
@@ -21,7 +24,7 @@ class KeyTapEffect extends StatelessWidget {
       curve: Curves.easeInOut,
       tween: Tween<double>(
         begin: 0,
-        end: isTapped ? (in3d ? 40 : -0.15) : 0,
+        end: isTapped ? (in3d ? config.keyDownDistance : -0.15) : 0,
       ),
       onEnd: onEnd,
       child: child,

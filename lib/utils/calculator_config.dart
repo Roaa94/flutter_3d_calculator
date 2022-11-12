@@ -25,16 +25,18 @@ class CalculatorConfig {
   double get fontSize => keySideMin * 0.6;
 
   final double calculatorSide;
-  final double calculatorBodyMaxSidesDistance = 130;
+
+  double get calculatorBodyMaxSidesDistance => calculatorSide * 0.28;
 
   double get calculatorSideWithDistance =>
       calculatorTotalSide + calculatorBodyMaxSidesDistance;
 
   double get calculatorTotalSide => calculatorSide + calculatorPadding * 2;
 
-  final double calculatorPadding = 20;
+  double get calculatorPadding => calculatorSide * 0.04;
+  double get keyDownDistance => calculatorPadding * 2;
 
-  double get calculatorVerticalBodyIndent => 20 * 2.5;
+  double get calculatorVerticalBodyIndent => calculatorPadding * 2.5;
 
   double get keySideMin =>
       (calculatorSide - (keysGap * (keysPerRow - 1))) / keysPerRow;
