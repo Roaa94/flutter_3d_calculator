@@ -77,7 +77,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(keyboardListenerFocusNode);
-
+    Size screenSize = MediaQuery.of(context).size;
+    double size = screenSize.width > 600 ? 460 : screenSize.width * 0.7;
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade200,
       body: Focus(
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage>
                     });
                   },
                   config: CalculatorConfig(
-                    calculatorSide: 460,
+                    calculatorSide: size,
                     autoTransform: false,
                     // This can be used to have the calculator scale with the screen
                     // However the performance is not good and some glitches happen

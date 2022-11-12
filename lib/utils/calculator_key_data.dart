@@ -61,27 +61,6 @@ enum CalculatorKeyType {
     }
   }
 
-  double get aspectRatio {
-    switch (this) {
-      case one:
-      case two:
-      case three:
-      case four:
-      case five:
-      case six:
-      case seven:
-      case eight:
-      case nine:
-      case dot:
-        return 1;
-      case zero:
-        return 2;
-      case minus:
-      case plus:
-        return 0.5;
-    }
-  }
-
   static CalculatorKeyType fromNumber(int number) {
     switch (number) {
       case 1:
