@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:calculator_3d/utils/calculator_config.dart';
-import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/drawing/calculator_body_clipper.dart';
 import 'package:calculator_3d/drawing/calculator_body_painter.dart';
+import 'package:calculator_3d/utils/calculator_config.dart';
+import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
 import 'package:calculator_3d/widgets/calculator_key.dart';
 import 'package:calculator_3d/widgets/key_gesture_detector.dart';
@@ -39,7 +39,9 @@ class _CalculatorViewState extends State<CalculatorView>
   void initState() {
     super.initState();
     animationController = widget.animationController;
-    // animationController.forward();
+    if (widget.config.autoTransform) {
+      animationController.forward();
+    }
     scaleAnimation = Tween<double>(begin: 1, end: 0.5).animate(
       CurvedAnimation(
         parent: animationController,

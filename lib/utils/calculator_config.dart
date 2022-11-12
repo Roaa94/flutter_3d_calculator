@@ -7,11 +7,13 @@ class CalculatorConfig {
     this.keyBorderRadius = 15,
     this.keysHaveShadow = true,
     this.baseColor = Colors.blueGrey,
+    this.autoTransform = true,
   });
 
   final double keyBorderRadius;
   final bool keysHaveShadow;
   final MaterialColor baseColor;
+  final bool autoTransform;
 
   final Color keysShadowColor = Colors.blueGrey.shade900.withOpacity(0.3);
 

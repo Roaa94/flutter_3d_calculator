@@ -121,6 +121,7 @@ class _HomePageState extends State<HomePage>
                   },
                   config: CalculatorConfig(
                     calculatorSide: 460,
+                    autoTransform: false,
                     // This can be used to have the calculator scale with the screen
                     // However the performance is not good and some glitches happen
                     // calculatorSide: screenSize.width * 0.6,
