@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage>
                       style: TextStyle(fontSize: 12),
                     ),
                     Text(
-                      'Inspired by a CSS implementation',
+                      "Inspired by @yoavikadosh's CSS implementation",
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
