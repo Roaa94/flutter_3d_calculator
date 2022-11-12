@@ -85,6 +85,7 @@ class KeyBodyPainter extends CustomPainter {
       ..lineTo(borderRadiusOffset, keySize.height - borderRadiusOffset);
     canvas.translate(translateAnimation.value.dx, translateAnimation.value.dy);
     canvas.scale(scaleAnimation.value.dx, scaleAnimation.value.dy);
+    canvas.drawShadow(path, Colors.black, 10, false);
     canvas.drawPath(path, paint);
   }
 

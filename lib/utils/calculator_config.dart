@@ -15,7 +15,7 @@ class CalculatorConfig {
   final MaterialColor baseColor;
   final bool autoTransform;
 
-  final Color keysShadowColor = Colors.blueGrey.shade900.withOpacity(0.3);
+  final Color keysShadowColor = Colors.blueGrey.shade900;
 
   double get keysGap => calculatorSide * 0.04;
   final Curve animationCurve;
