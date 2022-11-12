@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_view.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,23 +18,28 @@ class _HomePageState extends State<HomePage>
   late final Animation<double> scaleAnimation;
   final FocusNode keyboardListenerFocusNode = FocusNode();
   final tappedKeyTypes = <CalculatorKeyType>{};
-  final player = AudioPlayer();
   bool muted = false;
 
-  void _playSound() {
-    if (player.state == PlayerState.playing) {
-      player.stop();
-    }
+  void _playSound(String assetName) {
     if (!muted) {
-      player.play(AssetSource('keyboard_tap.wav'));
+      FlameAudio.play("../$assetName");
     }
   }
 
-  void _onKeyTap(CalculatorKeyType keyType) {
-    _playSound();
+  void _onKeyDown(CalculatorKeyType keyType) async {
     setState(() {
       tappedKeyTypes.add(keyType);
     });
+
+    _playSound('keyboard_down.wav');
+  }
+
+  void _onKeyUp(CalculatorKeyType keyType) async {
+    setState(() {
+      tappedKeyTypes.remove(keyType);
+    });
+
+    _playSound('keyboard_up.wav');
   }
 
   KeyEventResult _handleKeyboardEvent(FocusNode node, RawKeyEvent event) {
@@ -51,8 +56,16 @@ class _HomePageState extends State<HomePage>
       final logicalKey = event.data.logicalKey;
       CalculatorKeyType? calculatorKeyType =
           CalculatorKeyType.getFromKey(logicalKey);
+      if (calculatorKeyType != null && !event.repeat) {
+        _onKeyDown(calculatorKeyType);
+        return KeyEventResult.handled;
+      }
+    } else if (event is RawKeyUpEvent) {
+      final logicalKey = event.data.logicalKey;
+      CalculatorKeyType? calculatorKeyType =
+          CalculatorKeyType.getFromKey(logicalKey);
       if (calculatorKeyType != null) {
-        _onKeyTap(calculatorKeyType);
+        _onKeyUp(calculatorKeyType);
         return KeyEventResult.handled;
       }
     }
@@ -114,13 +127,9 @@ class _HomePageState extends State<HomePage>
               Center(
                 child: CalculatorView(
                   animationController: animationController,
-                  onKeyTap: _onKeyTap,
+                  onKeyDown: _onKeyDown,
+                  onKeyUp: _onKeyUp,
                   currentTappedKeys: tappedKeyTypes,
-                  onKeyAnimationEnd: (keyType) {
-                    setState(() {
-                      tappedKeyTypes.remove(keyType);
-                    });
-                  },
                   config: CalculatorConfig(
                     calculatorSide: size,
                     autoTransform: false,
