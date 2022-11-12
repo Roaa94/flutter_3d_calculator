@@ -1,16 +1,17 @@
-# calculator_3d
+# 3D/Isometric Calculator Built With Flutter 💙
 
-3D Calculator inspired by CSS implementation
+Inspired by the [CSS implementation](https://codepen.io/ykadosh/pen/bGKgxbe) by [@yoavikadosh](https://twitter.com/yoavikadosh/status/1590381416545910785)
 
-## Getting Started
+🔄 Toggle 3d view
 
-This project is a starting point for a Flutter application.
+🔉 Sound effect
 
-A few resources to get you started if this is your first Flutter project:
+⌨️🖱️ Keyboard & Mouse/touch support
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+🌍 [Live Demo](https://flutter-3d-calculator.roaakdm.com/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Preview
+
+
+https://user-images.githubusercontent.com/50345358/201474936-5cc523da-2d04-4226-ac1f-4fa0aa1bb92f.mp4
+
