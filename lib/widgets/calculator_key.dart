@@ -10,11 +10,13 @@ class CalculatorKey extends StatelessWidget {
     required this.keyData,
     required this.animationController,
     required this.calculatorConfig,
+    required this.glowOffsetAnimation,
   });
 
   final CalculatorKeyData keyData;
   final AnimationController animationController;
   final CalculatorConfig calculatorConfig;
+  final Animation<Offset> glowOffsetAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class CalculatorKey extends StatelessWidget {
             config: calculatorConfig,
             color: keyData.color,
             animationController: animationController,
+            glowOffsetAnimation: glowOffsetAnimation,
           ),
         ],
       ),

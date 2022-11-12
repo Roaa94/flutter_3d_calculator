@@ -23,8 +23,10 @@ class CalculatorBodyPainter extends CustomPainter {
   final CalculatorConfig config;
   final AnimationController animationController;
   late Animation<double> distanceAnimation;
+  late Animation<double> rimOffsetAnimation;
 
   final bodyPaint = Paint();
+  final rimPaint = Paint();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -32,7 +34,7 @@ class CalculatorBodyPainter extends CustomPainter {
       Offset(0, config.calculatorSideWithDistance),
       Offset(config.calculatorSideWithDistance, 0),
       [
-        config.baseColor.shade800,
+        config.baseColor.shade700,
         config.baseColor.shade500,
         config.baseColor.shade300,
         config.baseColor.shade200,
@@ -44,7 +46,7 @@ class CalculatorBodyPainter extends CustomPainter {
     double borderRadiusOffset =
         (config.keyBorderRadius * sqrt(2) - config.keyBorderRadius) / sqrt(2);
     double distance = distanceAnimation.value;
-    final path = Path()
+    final bodyPath = Path()
       ..addRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
@@ -67,7 +69,7 @@ class CalculatorBodyPainter extends CustomPainter {
         size.height + distance - borderRadiusOffset,
       )
       ..lineTo(borderRadiusOffset, size.height - borderRadiusOffset);
-    canvas.drawPath(path, bodyPaint);
+    canvas.drawPath(bodyPath, bodyPaint);
   }
 
   @override

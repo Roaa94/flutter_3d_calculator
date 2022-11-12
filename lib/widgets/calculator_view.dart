@@ -33,6 +33,7 @@ class _CalculatorViewState extends State<CalculatorView>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<double> scaleAnimation;
+  late final Animation<Offset> glowOffsetAnimation;
 
   @override
   void initState() {
@@ -45,6 +46,16 @@ class _CalculatorViewState extends State<CalculatorView>
         curve: widget.config.animationCurve,
       ),
     );
+
+    glowOffsetAnimation = Tween<Offset>(
+      begin: const Offset(2, 2),
+      end: const Offset(4, 4),
+    ).animate(
+      CurvedAnimation(
+        parent: widget.animationController,
+        curve: widget.config.animationCurve,
+      ),
+    );
   }
 
   @override
@@ -54,6 +65,10 @@ class _CalculatorViewState extends State<CalculatorView>
       builder: (context, child) {
         double bodyOffset = widget.config.calculatorVerticalBodyIndent *
             animationController.value;
+
+        double rimSide = widget.config.calculatorTotalSide +
+            widget.config.calculatorPadding +
+            (widget.config.calculatorPadding * animationController.value);
 
         return Transform.scale(
           scaleY: scaleAnimation.value,
@@ -93,6 +108,7 @@ class _CalculatorViewState extends State<CalculatorView>
                             keyData: key,
                             calculatorConfig: widget.config,
                             animationController: animationController,
+                            glowOffsetAnimation: glowOffsetAnimation,
                           ),
                         ),
                       );
@@ -110,6 +126,36 @@ class _CalculatorViewState extends State<CalculatorView>
                       painter: CalculatorBodyPainter(
                         config: widget.config,
                         animationController: animationController,
+                      ),
+                      child: Center(
+                        child: Container(
+                          width: rimSide,
+                          height: rimSide,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              widget.config.keyBorderRadius,
+                            ),
+                            gradient: LinearGradient(
+                              colors: [
+                                widget.config.baseColor.shade300,
+                                widget.config.baseColor.shade200,
+                                widget.config.baseColor.shade100,
+                                widget.config.baseColor.shade50,
+                              ],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              stops: const [0.01, 0.49, 0.52, 0.7],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.8),
+                                offset: glowOffsetAnimation.value,
+                                blurRadius: 6,
+                                blurStyle: BlurStyle.solid,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

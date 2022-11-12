@@ -26,9 +26,12 @@ class CalculatorConfig {
   final double calculatorBodyMaxSidesDistance = 130;
 
   double get calculatorSideWithDistance =>
-      calculatorSide + calculatorPadding * 2 + calculatorBodyMaxSidesDistance;
+      calculatorTotalSide + calculatorBodyMaxSidesDistance;
+
+  double get calculatorTotalSide => calculatorSide + calculatorPadding * 2;
 
   final double calculatorPadding = 20;
+
   double get calculatorVerticalBodyIndent => 20 * 2.5;
 
   double get keySideMin =>
