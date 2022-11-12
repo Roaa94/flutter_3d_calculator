@@ -83,7 +83,6 @@ class _HomePageState extends State<HomePage>
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
-      value: 1.0,
     );
   }
 
