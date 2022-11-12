@@ -157,7 +157,6 @@ class _HomePageState extends State<HomePage>
                     SizedBox(height: 5),
                     Text(
                       'A 3d-ish/Isometric Calculator built with Flutter 💙',
-
                       style: TextStyle(fontSize: 12),
                     ),
                     Text(
