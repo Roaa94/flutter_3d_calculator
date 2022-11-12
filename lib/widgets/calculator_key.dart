@@ -1,7 +1,7 @@
+import 'package:calculator_3d/drawing/key_body_painter.dart';
 import 'package:calculator_3d/utils/calculator_config.dart';
 import 'package:calculator_3d/utils/calculator_key_data.dart';
 import 'package:calculator_3d/widgets/calculator_key_face.dart';
-import 'package:calculator_3d/widgets/key_body_painter.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorKey extends StatelessWidget {
