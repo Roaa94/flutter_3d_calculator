@@ -6,7 +6,7 @@ import 'package:calculator_3d/widgets/calculator_body_back.dart';
 import 'package:calculator_3d/widgets/calculator_body_front.dart';
 import 'package:calculator_3d/widgets/calculator_grid.dart';
 import 'package:calculator_3d/widgets/calculator_key.dart';
-import 'package:calculator_3d/widgets/key_gesture_detector.dart';
+import 'package:calculator_3d/widgets/key_tap_effect.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorView extends StatefulWidget {
