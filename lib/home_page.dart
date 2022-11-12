@@ -81,9 +81,6 @@ class _HomePageState extends State<HomePage>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    // for (var keyType in CalculatorKeyType.values) {
-    //   audioPlayerMap[keyType] = AudioPlayer();
-    // }
   }
 
   @override
