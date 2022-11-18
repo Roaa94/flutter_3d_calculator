@@ -102,6 +102,7 @@ class _CalculatorViewState extends State<CalculatorView>
                       return GestureDetector(
                         onTapDown: (_) => widget.onKeyDown(key.type),
                         onTapUp: (_) => widget.onKeyUp(key.type),
+                        onTapCancel: () => widget.onKeyUp(key.type),
                         child: KeyTapEffect(
                           config: widget.config,
                           in3d: animationController.isCompleted,
