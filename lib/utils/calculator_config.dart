@@ -7,13 +7,13 @@ class CalculatorConfig {
     this.borderRadius = 15,
     this.keysHaveShadow = true,
     this.baseColor = Colors.blueGrey,
-    this.autoTransform = true,
+    this.startAt3D = true,
   });
 
   final double borderRadius;
   final bool keysHaveShadow;
   final MaterialColor baseColor;
-  final bool autoTransform;
+  final bool startAt3D;
 
   final Color keysShadowColor = Colors.blueGrey.shade900;
 

@@ -39,8 +39,8 @@ class _CalculatorViewState extends State<CalculatorView>
   void initState() {
     super.initState();
     animationController = widget.animationController;
-    if (widget.config.autoTransform) {
-      animationController.forward();
+    if (widget.config.startAt3D) {
+      animationController.value = 1;
     }
     scaleAnimation = Tween<double>(begin: 1, end: 0.5).animate(
       CurvedAnimation(

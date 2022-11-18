@@ -81,9 +81,6 @@ class _HomePageState extends State<HomePage>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    // for (var keyType in CalculatorKeyType.values) {
-    //   audioPlayerMap[keyType] = AudioPlayer();
-    // }
   }
 
   @override
@@ -136,7 +133,7 @@ class _HomePageState extends State<HomePage>
                   currentTappedKeys: tappedKeyTypes,
                   config: CalculatorConfig(
                     calculatorSide: size,
-                    autoTransform: false,
+                    startAt3D: true,
                     // This can be used to have the calculator scale with the screen
                     // However the performance is not good and some glitches happen
                     // calculatorSide: screenSize.width * 0.6,
